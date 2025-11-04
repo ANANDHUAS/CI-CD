@@ -1,4 +1,47 @@
-# .github/workflows/deploy-feature.yml
+# # .github/workflows/deploy-feature.yml
+
+# name: Deploy 'feature' Branch
+
+# # This is the updated trigger
+# on:
+#   pull_request:
+#     types: [closed] # Runs when a PR is closed
+#     branches:
+#       - 'feature' # Triggers ONLY for the branch named 'feature'
+
+# jobs:
+#   deploy-feature-environment:
+#     name: Deploy 'feature' Branch
+#     runs-on: ubuntu-latest
+    
+#     # This condition ensures the job only runs if the PR was MERGED
+#     if: github.event.pull_request.merged == true
+
+#     steps:
+#       # Step 1: Get the code from the branch
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       # --- Example Build Steps (Using Node.js) ---
+#       # Replace this section with your project's build process
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: '20'
+#           cache: 'npm'
+
+#       - name: Install dependencies
+#         run: npm ci
+
+#       - name: Build project
+#         run: npm run build
+#       # --- End of Example Build Steps ---
+
+#       # --- Deployment Step (Placeholder) ---
+#       - name: Deploy
+#         run: |
+#           echo "PR merged! Deploying the 'feature' branch..."
+#           # ... your deploy commands
 
 name: Deploy 'feature' Branch
 
@@ -23,7 +66,6 @@ jobs:
         uses: actions/checkout@v4
 
       # --- Example Build Steps (Using Node.js) ---
-      # Replace this section with your project's build process
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -36,6 +78,18 @@ jobs:
       - name: Build project
         run: npm run build
       # --- End of Example Build Steps ---
+
+      # --- THIS IS THE NEW STEP TO GET YOUR BUILD OUTPUT ---
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          # This will be the name of the .zip file you download
+          name: build-output
+          
+          # This is the path to the folder you want to upload.
+          # Change './build' if your output folder is different (e.G., './dist')
+          path: ./build
+      # --- END OF NEW STEP ---
 
       # --- Deployment Step (Placeholder) ---
       - name: Deploy
