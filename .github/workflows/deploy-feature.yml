@@ -88,7 +88,7 @@ jobs:
           
           # This is the path to the folder you want to upload.
           # Change './build' if your output folder is different (e.G., './dist')
-          path: ./build
+          path: ./dist
       # --- END OF NEW STEP ---
 
       # --- Deployment Step (Placeholder) ---
